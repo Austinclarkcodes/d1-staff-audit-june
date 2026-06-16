@@ -3,7 +3,7 @@ const { Resend } = require('resend');
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
-const NOTIFY_EMAILS = [process.env.NOTIFY_EMAIL_1, process.env.NOTIFY_EMAIL_2].filter(Boolean);
+const NOTIFY_EMAILS = [process.env.NOTIFY_EMAIL_1, process.env.NOTIFY_EMAIL_2, process.env.NOTIFY_EMAIL_3].filter(Boolean);
 const FROM_EMAIL = process.env.FROM_EMAIL || 'D1 Staff Audit <noreply@d1training.com>';
 
 const brandedEmailWrapper = (content) => `
