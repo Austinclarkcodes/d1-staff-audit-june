@@ -1,0 +1,21 @@
+{
+  "name": "d1-staff-audit",
+  "version": "1.0.0",
+  "description": "D1 Training Internal Staff Time & Energy Audit Tool",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev:server": "node server.js",
+    "build": "cd client && npm install && npm run build",
+    "install:all": "npm install && cd client && npm install"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "resend": "^3.2.0"
+  }
+}
