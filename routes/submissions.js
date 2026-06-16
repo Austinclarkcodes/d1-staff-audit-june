@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { createSubmission, getAllSubmissions, getSubmissionById, getAllSubmissionsForExport, getStats } = require('../db');
 const { sendConfirmationEmail, sendNotificationEmail } = require('../email');
+const adminAuth = require('../middleware/auth');
 
 router.post('/submit/gm', async (req, res) => {
   try {
@@ -55,7 +56,7 @@ router.post('/submit/staff', async (req, res) => {
   }
 });
 
-router.get('/submissions', (req, res) => {
+router.get('/submissions', adminAuth, (req, res) => {
   try {
     const { location, formType, role, dateFrom, dateTo } = req.query;
     const submissions = getAllSubmissions({ location, formType, role, dateFrom, dateTo });
@@ -65,7 +66,7 @@ router.get('/submissions', (req, res) => {
   }
 });
 
-router.get('/submissions/export/csv', (req, res) => {
+router.get('/submissions/export/csv', adminAuth, (req, res) => {
   try {
     const submissions = getAllSubmissionsForExport();
     const headers = ['ID', 'Form Type', 'Name', 'Email', 'Location', 'Role', 'Employment Type', 'Submitted At',
@@ -94,7 +95,7 @@ router.get('/submissions/export/csv', (req, res) => {
   }
 });
 
-router.get('/submissions/stats', (req, res) => {
+router.get('/submissions/stats', adminAuth, (req, res) => {
   try {
     res.json(getStats());
   } catch (err) {
@@ -102,7 +103,7 @@ router.get('/submissions/stats', (req, res) => {
   }
 });
 
-router.get('/submissions/:id', (req, res) => {
+router.get('/submissions/:id', adminAuth, (req, res) => {
   try {
     const submission = getSubmissionById(parseInt(req.params.id));
     if (!submission) return res.status(404).json({ error: 'Submission not found' });
