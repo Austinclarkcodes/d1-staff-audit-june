@@ -1,13 +1,13 @@
 // ─── Update these 8 facility names to match your locations ───────────────────
 export const FACILITIES = [
-  'D1 Training — Location 1',
-  'D1 Training — Location 2',
-  'D1 Training — Location 3',
-  'D1 Training — Location 4',
-  'D1 Training — Location 5',
-  'D1 Training — Location 6',
-  'D1 Training — Location 7',
-  'D1 Training — Location 8',
+  'D1 Training — Bloomingdale',
+  'D1 Training — Chattanooga',
+  'D1 Training — Mission Viejo',
+  'D1 Training — Torrance',
+  'D1 Training — Frisco',
+  'D1 Training — Firewheel',
+  'D1 Training — Hulen',
+  'D1 Training — Arlington',
 ];
 
 export const ROLES = [
