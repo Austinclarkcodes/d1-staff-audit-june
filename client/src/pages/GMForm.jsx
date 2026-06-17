@@ -32,6 +32,7 @@ function validate(section, data) {
   if (section === 3) {
     if (!data.mainResponsibilities?.length) errs.mainResponsibilities = 'Select at least one responsibility';
     if (!data.unknownTimeSpend?.trim()) errs.unknownTimeSpend = 'Please answer this question';
+    if (!data.knowsTargets) errs.knowsTargets = 'Please answer this question';
   }
   if (section === 4) {
     SECTION5_QUESTIONS.forEach((q) => {

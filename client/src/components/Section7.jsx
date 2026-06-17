@@ -2,6 +2,7 @@ import { ROLES, DAYS } from '../constants.js';
 
 const KNOWS_RESP_OPTIONS = ['Definitely yes', 'I think so', 'Not sure', 'Honestly, no'];
 const HITTING_TARGETS_OPTIONS = ['Yes consistently', 'Sometimes', 'Rarely', "I'm not tracking this"];
+const KNOWS_TARGETS_OPTIONS = ['Yes', 'Somewhat', 'No', "I'm not sure"];
 
 function StaffMemberCard({ member, index, onChange, onRemove }) {
   const update = (field, value) => onChange(index, field, value);
@@ -79,6 +80,23 @@ function StaffMemberCard({ member, index, onChange, onRemove }) {
       </div>
 
       <div className="field-group">
+        <label className="field-label">Does this person know their performance targets?</label>
+        <div className="radio-group" style={{ flexWrap: 'wrap' }}>
+          {KNOWS_TARGETS_OPTIONS.map((opt) => (
+            <label key={opt} className={`radio-btn ${member.knowsTargets === opt ? 'selected' : ''}`} style={{ padding: '7px 12px' }}>
+              <input type="radio" checked={member.knowsTargets === opt} onChange={() => update('knowsTargets', opt)} />
+              <span style={{ fontSize: '13px' }}>{opt}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div className="field-group">
+        <label className="field-label">What are their targets, or what should they be hitting? <span style={{ color: 'var(--d1-gray)', fontWeight: 400 }}>(Optional)</span></label>
+        <textarea className="field-textarea" value={member.targets || ''} onChange={(e) => update('targets', e.target.value)} placeholder="e.g., 15 outbound calls/day, 60% show rate, 3 closes/week" style={{ minHeight: '60px' }} />
+      </div>
+
+      <div className="field-group">
         <label className="field-label">Notes on this person <span style={{ color: 'var(--d1-gray)', fontWeight: 400 }}>(Optional)</span></label>
         <textarea className="field-textarea" value={member.notes || ''} onChange={(e) => update('notes', e.target.value)} placeholder="Anything else relevant — strengths, gaps, concerns..." style={{ minHeight: '60px' }} />
       </div>
@@ -86,7 +104,7 @@ function StaffMemberCard({ member, index, onChange, onRemove }) {
   );
 }
 
-const BLANK_MEMBER = { name: '', role: '', daysWorked: [], approximateHours: '', dayToDay: '', knowsResponsibilities: '', hittingTargets: '', notes: '' };
+const BLANK_MEMBER = { name: '', role: '', daysWorked: [], approximateHours: '', dayToDay: '', knowsResponsibilities: '', hittingTargets: '', knowsTargets: '', targets: '', notes: '' };
 
 export default function Section7({ data, onChange }) {
   const members = data.staffMembers || [];

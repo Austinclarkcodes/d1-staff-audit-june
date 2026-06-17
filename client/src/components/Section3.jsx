@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import TimeGrid from './TimeGrid.jsx';
+import { ACTIVITIES } from '../constants.js';
 
 export default function Section3({ data, onChange }) {
   const handleCellChange = useCallback(
@@ -27,6 +28,15 @@ export default function Section3({ data, onChange }) {
       <p style={{ fontSize: '13px', color: 'var(--d1-gray)', marginBottom: '16px', lineHeight: '1.6' }}>
         Fill in what you typically do during each 15-minute block. You don't need to fill every cell — just the ones that reflect your typical week.
       </p>
+
+      <div style={{ background: '#f8f8f8', border: '1px solid var(--d1-border)', borderRadius: '6px', padding: '14px 16px', marginBottom: '20px' }}>
+        <div style={{ fontFamily: 'var(--font-header)', fontSize: '11px', letterSpacing: '1px', color: 'var(--d1-gray)', marginBottom: '10px' }}>AVAILABLE ACTIVITIES — select from these in the grid below</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+          {ACTIVITIES.filter(a => a !== '—').map(a => (
+            <span key={a} style={{ background: 'white', border: '1px solid var(--d1-border)', borderRadius: '3px', padding: '4px 10px', fontSize: '12px', color: '#444', lineHeight: '1' }}>{a}</span>
+          ))}
+        </div>
+      </div>
 
       <TimeGrid
         daysWorked={data.daysWorked || []}

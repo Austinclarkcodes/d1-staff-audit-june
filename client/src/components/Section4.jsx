@@ -1,4 +1,4 @@
-import { ACTIVITIES } from '../constants.js';
+import { ACTIVITIES, KPI_HINTS } from '../constants.js';
 
 const RESPONSIBILITY_OPTIONS = ACTIVITIES.filter((a) => a !== '—');
 
@@ -52,6 +52,36 @@ export default function Section4({ data, onChange, errors }) {
           placeholder="A process, a tool, a gap in support — whatever it is, say it."
           style={{ minHeight: '80px' }}
         />
+      </div>
+
+      <div style={{ borderTop: '2px solid var(--d1-border)', marginTop: '28px', paddingTop: '24px' }}>
+        <div style={{ fontFamily: 'var(--font-header)', fontSize: '12px', letterSpacing: '1.5px', color: 'var(--d1-red)', marginBottom: '16px' }}>PERFORMANCE TARGETS</div>
+
+        <div className="field-group">
+          <label className="field-label">Do you know your performance targets for your role? <span className="required">*</span></label>
+          <div className="radio-group" style={{ flexWrap: 'wrap' }}>
+            {['Yes', 'Somewhat', 'No'].map((opt) => (
+              <label key={opt} className={`radio-btn ${data.knowsTargets === opt ? 'selected' : ''}`} style={{ padding: '9px 20px' }}>
+                <input type="radio" checked={data.knowsTargets === opt} onChange={() => onChange('knowsTargets', opt)} />
+                <span style={{ fontSize: '14px' }}>{opt}</span>
+              </label>
+            ))}
+          </div>
+          {errors.knowsTargets && <div className="field-error">{errors.knowsTargets}</div>}
+        </div>
+
+        {(data.knowsTargets === 'Yes' || data.knowsTargets === 'Somewhat') && (
+          <div className="field-group">
+            <label className="field-label">What are they? <span style={{ color: 'var(--d1-gray)', fontWeight: 400 }}>(Optional — be as specific as you can)</span></label>
+            <textarea
+              className="field-textarea"
+              value={data.targetsDescription || ''}
+              onChange={(e) => onChange('targetsDescription', e.target.value)}
+              placeholder={KPI_HINTS[data.role] || 'e.g., your key metrics for this role'}
+              style={{ minHeight: '80px' }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

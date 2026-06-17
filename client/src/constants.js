@@ -40,24 +40,35 @@ export const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export const ACTIVITIES = [
   '—',
-  'Open/Close Facility',
-  'Lead Follow-Up / Outbound Calls',
-  'Inbound Calls / Walk-Ins',
-  'Tours / Membership Sales',
-  'CRM / Data Entry',
-  'Group Class — Coaching',
-  '1-on-1 Training',
-  'Small Group Training',
-  'Youth / Camps',
+  'Open Facility',
+  'Close Facility',
+  'Lead Follow-Up',
+  'Outbound Calls',
+  'Walk-Ins / Tour Sales',
+  'CRM Data Entry',
+  'Admin Reporting',
   'Staff Meeting',
-  '1-on-1 Meeting (with manager)',
+  'One-on-One (Manager)',
   'Team Huddle',
-  'Admin / Reporting',
+  'Group Class Coaching',
+  'One-on-One Training',
+  'Small Group Training',
+  'Youth Camp',
   'Social Media / Marketing',
-  'Lunch / Break',
-  'Training / Development',
+  'Training & Development',
+  'Lunch Break / Break',
   'Other',
 ];
+
+export const KPI_HINTS = {
+  'General Manager': 'e.g., close rate, total-to-closes, show rate, total shows, membership growth',
+  'Assistant GM': 'e.g., close rate, show rate, member retention, floor traffic',
+  'Head Coach': 'e.g., client retention, session count, member satisfaction',
+  'Coach': 'e.g., session count, client retention, class attendance',
+  'Recruiter': 'e.g., outbound call volume, schedule rate, show rate, close rate',
+  'Membership Coordinator': 'e.g., close rate, trial conversion, follow-up volume, renewals',
+  'Other': 'e.g., your key performance metrics for this role',
+};
 
 function timeToMinutes(t) {
   const m = t.match(/(\d+):(\d+)\s*(AM|PM)/i);
@@ -80,13 +91,13 @@ function minutesToTime(mins) {
 
 export function generateArrivalTimes() {
   const times = [];
-  for (let m = 5 * 60; m <= 10 * 60; m += 30) times.push(minutesToTime(m));
+  for (let m = 4 * 60; m <= 21 * 60; m += 30) times.push(minutesToTime(m));
   return times;
 }
 
 export function generateDepartureTimes() {
   const times = [];
-  for (let m = 11 * 60; m <= 22 * 60; m += 30) times.push(minutesToTime(m));
+  for (let m = 5 * 60; m <= 23 * 60 + 30; m += 30) times.push(minutesToTime(m));
   return times;
 }
 
@@ -191,6 +202,8 @@ export const INITIAL_FORM_DATA = {
   mainResponsibilities: [],
   unknownTimeSpend: '',
   slowdowns: '',
+  knowsTargets: '',
+  targetsDescription: '',
   trainingQuality: '',
   dailyClarity: '',
   scriptsSops: '',
