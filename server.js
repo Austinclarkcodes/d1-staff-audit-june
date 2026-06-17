@@ -2,9 +2,21 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const { execSync } = require('child_process');
 const { initDb } = require('./db');
 const submissionsRouter = require('./routes/submissions');
 const adminAuth = require('./middleware/auth');
+
+// Rebuild the client on startup so source-code changes in the container
+// are always reflected without needing a new Docker image.
+const clientDir = path.join(__dirname, 'client');
+try {
+  console.log('Building client...');
+  execSync('npm install && npm run build', { cwd: clientDir, stdio: 'inherit' });
+  console.log('Client build complete.');
+} catch (err) {
+  console.error('Client build failed, serving existing dist:', err.message);
+}
 
 const app = express();
 const PORT = process.env.PORT || 3001;
