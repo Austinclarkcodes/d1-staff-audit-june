@@ -54,6 +54,7 @@ Search for `DUE DATE TBD` in `client/src/pages/GMForm.jsx` and `client/src/pages
 | `NOTIFY_EMAIL_1` | First notification recipient (e.g. Austin) |
 | `NOTIFY_EMAIL_2` | Second notification recipient (e.g. Carly) |
 | `APP_URL` | Public URL of the deployed app (for dashboard links in emails) |
+| `ADMIN_USERS` | Comma-separated basic-auth users, `username:password,username2:password2`. Read once at startup. Unset or empty fails closed. |
 
 ---
 
@@ -72,22 +73,11 @@ The `railway.toml` configures the build and start commands automatically.
 
 ## Admin Dashboard
 
-Navigate to `/admin`. No authentication is currently set up.
+Navigate to `/admin`. The `/admin` page and `/api/submissions*` routes use HTTP basic auth. Users are loaded from `ADMIN_USERS` when the server starts (`username:password` pairs, comma-separated; the password is everything after the first colon).
 
-**TODO before sharing the link externally:** Add a password check. Simplest approach:
+If `ADMIN_USERS` is unset, empty, or has no valid pairs, those admin routes return HTTP 503 with the body `admin not configured`. Put real values in the host environment only, not in git.
 
-```javascript
-// In server.js, before the /admin route or as middleware:
-app.use('/admin', (req, res, next) => {
-  const auth = req.headers.authorization;
-  if (!auth || auth !== `Bearer ${process.env.ADMIN_TOKEN}`) {
-    return res.status(401).send('Unauthorized');
-  }
-  next();
-});
-```
-
-Or use [express-basic-auth](https://www.npmjs.com/package/express-basic-auth) for a simple username/password prompt.
+Public form routes `POST /api/submit/gm` and `POST /api/submit/staff` are unchanged and do not use this check.
 
 ---
 
