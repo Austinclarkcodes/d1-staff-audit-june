@@ -48,6 +48,7 @@ Search for `DUE DATE TBD` in `client/src/pages/GMForm.jsx` and `client/src/pages
 | Variable | Description |
 |---|---|
 | `PORT` | Server port (Railway sets this automatically) |
+| `NODE_ENV` | Runtime mode (`development` locally) |
 | `DATABASE_PATH` | Path to SQLite file (default: `./data/db.sqlite`) |
 | `RESEND_API_KEY` | From [resend.com](https://resend.com) |
 | `FROM_EMAIL` | Sender address (must be verified in Resend) |
@@ -58,6 +59,8 @@ Search for `DUE DATE TBD` in `client/src/pages/GMForm.jsx` and `client/src/pages
 ---
 
 ## Railway Deployment
+
+Hosted on Railway. The public URL is unknown in this repo; confirm the current URL with Austin.
 
 1. Push this repo to GitHub
 2. In Railway: **New Project → Deploy from GitHub repo**
